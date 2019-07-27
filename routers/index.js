@@ -7,8 +7,17 @@ const { username,
         description,
         boardCreate,
         containerCreate,
+        containerUpdate,
         cardCreate,
-        descriptionCreate } = require("../controllers/controllers")
+        descriptionCreate,
+        checkEmail,
+        checkNickName,
+        createUser,
+        login,
+        loginCheck,
+        boardUpdate,
+        descriptionUpdate,
+        cardIsActive } = require("../controllers/controllers")
 
 const router = express.Router();
 
@@ -20,21 +29,36 @@ router.get(routes.username, username);
 
 router.get(routes.userIdBoard, board_userId);
 router.post(routes.boards + routes.create, boardCreate);
+router.post(routes.boards + routes.update, boardUpdate);
 
 // container
 
 router.get(routes.containerBoardId, container_boardId);
 router.post(routes.containers + routes.create, containerCreate);
+router.post(routes.containers + routes.update, containerUpdate);
 
 
 // card
 
 router.get(routes.cards, allCard);
 router.post(routes.cards + routes.create, cardCreate);
+router.post(routes.cards + routes.is_active, cardIsActive);
 
 // description
 
 router.get(routes.descriptionCardId, description);
 router.post(routes.description + routes.create, descriptionCreate);
+router.post(routes.description + routes.update, descriptionUpdate);
+
+// signup
+
+router.get(routes.signup + routes.email, checkEmail)
+router.get(routes.signup + routes.nickName + routes.userNickName, checkNickName);
+router.post(routes.signup + routes.create, createUser)
+
+// login
+
+router.post(routes.login + routes.attempt, login);
+router.post(routes.login + routes.check, loginCheck);
 
 module.exports = router;

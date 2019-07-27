@@ -7,8 +7,17 @@ const CARDS = "/cards";
 const DESCRIPTION_CARDID = "/description/:cardId";
 const BOARDS = "/boards";
 const CREATE = "/create";
+const UPDATE = "/update";
 const CONTAINERS = "/containers";
 const DESCRIPTION = "/description";
+const EMAIL = "/:email";
+const SIGNUP = "/signup";
+const NICK_NAME = "/nickname";
+const USER_NICK_NAME = "/:nickname";
+const LOGIN = "/login";
+const ATTEMPT = "/attempt";
+const CHECK = "/check";
+const IS_ACTIVE = "/isactive";
 
 // routes
 
@@ -21,8 +30,17 @@ const routes = {
   descriptionCardId: DESCRIPTION_CARDID,
   boards: BOARDS,
   create: CREATE,
+  update: UPDATE,
   containers: CONTAINERS,
-  description: DESCRIPTION
+  description: DESCRIPTION,
+  email: EMAIL,
+  signup: SIGNUP,
+  nickName: NICK_NAME,
+  userNickName: USER_NICK_NAME,
+  login: LOGIN,
+  attempt: ATTEMPT,
+  check: CHECK,
+  is_active: IS_ACTIVE
 }
 
 module.exports = routes;

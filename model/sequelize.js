@@ -9,9 +9,17 @@ const sequelize = new Sequelize( "trello-clone", process.env.DB_USERNAME, proces
   }
 )
 
+sequelize.sync({force: false})
+
 const Users = sequelize.define('Users', {
-  username: {
-    type: Sequelize.STRING,
+  email: {
+    type: Sequelize.STRING
+  },
+  password: {
+    type: Sequelize.STRING
+  },
+  nickname: {
+    type: Sequelize.STRING
   }
 });
 
@@ -39,6 +47,10 @@ const Cards = sequelize.define('Cards', {
   },
   containerId: {
     type: Sequelize.INTEGER
+  },
+  isActive: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 
@@ -51,6 +63,6 @@ const Description = sequelize.define('Description', {
   }
 })
 
-sequelize.sync({force: false})
+
 
 module.exports = { Users, Boards, Containers, Cards, Description, sequelize }
