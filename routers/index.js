@@ -17,7 +17,8 @@ const { username,
         loginCheck,
         boardUpdate,
         descriptionUpdate,
-        cardIsActive } = require("../controllers/controllers")
+        cardIsActive,
+        completedCards } = require("../controllers/controllers")
 
 const router = express.Router();
 
@@ -43,6 +44,7 @@ router.post(routes.containers + routes.update, containerUpdate);
 router.get(routes.cards, allCard);
 router.post(routes.cards + routes.create, cardCreate);
 router.post(routes.cards + routes.is_active, cardIsActive);
+router.get(routes.cards + routes.is_active + '/completed', completedCards);
 
 // description
 

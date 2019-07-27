@@ -37,6 +37,7 @@ app.use(routes.containers + routes.update, router);
 app.use(routes.cards, router);
 app.use(routes.cards + routes.create, router);
 app.use(routes.cards + routes.is_active, router);
+app.use(routes.cards + routes.is_active + '/completed', router);
 
 // description
 

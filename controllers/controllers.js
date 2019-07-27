@@ -90,7 +90,7 @@ const containerUpdate = (req, res) => {
 // card ---------------------------------------------------------------------------------------------------
 
 const allCard = (req, res) => {
-  const cards = Cards.findAll();
+  const cards = Cards.findAll({where:{isActive: false}});
   cards
   .then( cards => {
     res.json(cards);
@@ -102,7 +102,7 @@ const cardCreate = (req, res) => {
   const cards = Cards.create(addCard);
   cards
   .then( () => {
-    return Cards.findAll();
+    return Cards.findAll({where:{isActive: false}});
   })
   .then( cards => {
     res.json(cards);
@@ -111,13 +111,29 @@ const cardCreate = (req, res) => {
 
 const cardIsActive = (req, res) => {
   const card = Cards.update({isActive: req.body.isActive},
-    {where: {id: req.body.id}, returning: true})
+    {where: {id: req.body.id}, returning: false})
   
   card
-  .then( result => {
-    res.send(result);
+  .then( () => {
+    return Cards.findAll({where: {isActive: !req.body.isActive}});
+  })
+  .then( cards => {
+    res.json(cards);
   })
   .catch(err => {
+    res.json({
+      success: false
+    })
+  })
+}
+
+const completedCards = (req, res) => {
+  const completedCards = Cards.findAll({where:{isActive: true}})
+  completedCards
+  .then( cards => {
+    res.json(cards);
+  })
+  .catch( err => {
     res.json({
       success: false
     })
@@ -287,4 +303,5 @@ module.exports = { username,
                    login,
                    loginCheck,
                    descriptionUpdate,
-                   cardIsActive };
+                   cardIsActive,
+                   completedCards };
