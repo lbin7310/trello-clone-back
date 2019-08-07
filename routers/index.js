@@ -18,7 +18,8 @@ const { username,
         boardUpdate,
         descriptionUpdate,
         cardIsActive,
-        completedCards } = require("../controllers/controllers")
+        completedCards,
+        deleteBoard } = require("../controllers/controllers")
 
 const router = express.Router();
 
@@ -31,6 +32,7 @@ router.get(routes.username, username);
 router.get(routes.userIdBoard, board_userId);
 router.post(routes.boards + routes.create, boardCreate);
 router.post(routes.boards + routes.update, boardUpdate);
+router.post(routes.boards + routes.delete, deleteBoard);
 
 // container
 

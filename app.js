@@ -25,6 +25,8 @@ app.use(routes.username, router);
 app.use(routes.userIdBoard, router);
 app.use(routes.boards + routes.create, router);
 app.use(routes.boards + routes.update, router);
+app.use(routes.boards + routes.delete, router);
+
 // container
 
 app.use(routes.containerBoardId, router);

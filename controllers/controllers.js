@@ -48,6 +48,14 @@ const boardUpdate = (req, res) => {
     })
   })
 }
+
+const deleteBoard = (req, res) => {
+  Boards.destroy({where:{id: req.body.id}})
+  .then( () => {
+    res.json({})
+  })
+}
+
 // container ---------------------------------------------------------------------------------------------------
 
 const container_boardId = (req, res) => {
@@ -304,4 +312,5 @@ module.exports = { username,
                    loginCheck,
                    descriptionUpdate,
                    cardIsActive,
-                   completedCards };
+                   completedCards,
+                   deleteBoard };

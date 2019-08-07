@@ -18,6 +18,7 @@ const LOGIN = "/login";
 const ATTEMPT = "/attempt";
 const CHECK = "/check";
 const IS_ACTIVE = "/isactive";
+const DELETE = "/delete";
 
 // routes
 
@@ -40,7 +41,8 @@ const routes = {
   login: LOGIN,
   attempt: ATTEMPT,
   check: CHECK,
-  is_active: IS_ACTIVE
+  is_active: IS_ACTIVE,
+  delete: DELETE
 }
 
 module.exports = routes;
