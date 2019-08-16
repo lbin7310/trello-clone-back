@@ -1,15 +1,16 @@
 require('dotenv').config();
-
+// TODO: 아래 모델 정의는 각 모델 파일로 분류가 되어야 함, 추후 작업 예정
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize( "trello-clone", process.env.DB_USERNAME, process.env.DB_PASSWORD,
+const sequelize = new Sequelize(
+  'trello-clone', process.env.DB_USERNAME, process.env.DB_PASSWORD,
   {
     host: process.env.DB_HOST,
     dialect: 'mysql'
   }
-)
+);
 
-sequelize.sync({force: false})
+sequelize.sync({ force: false });
 
 const Users = sequelize.define('Users', {
   email: {
@@ -52,7 +53,7 @@ const Cards = sequelize.define('Cards', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   }
-})
+});
 
 const Description = sequelize.define('Description', {
   title: {
@@ -61,8 +62,8 @@ const Description = sequelize.define('Description', {
   cardId: {
     type: Sequelize.INTEGER
   }
-})
+});
 
-
-
-module.exports = { Users, Boards, Containers, Cards, Description, sequelize }
+module.exports = {
+  Users, Boards, Containers, Cards, Description, sequelize
+};

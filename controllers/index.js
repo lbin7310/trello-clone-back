@@ -1,152 +1,114 @@
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
-const { Users, Boards, Containers, Cards, Description } = require("../model/sequelize");
+const {
+  Users, Boards, Containers, Cards, Description
+} = require('../model/sequelize');
 
 const username = (req, res) => {
   const name = req.params.username;
-  const User = Users.findOne({where: {nickname: name}})
-  User
-  .then( userInfo => {
-    res.json(userInfo);
-  })
-}
+  Users
+    .findOne({ where: { nickname: name } })
+    .then((userInfo) => res.json(userInfo));
+};
 
 // board ---------------------------------------------------------------------------------------------------
 
 const board_userId = (req, res) => {
   const id = req.params.board_userId;
-  const boards =  Boards.findAll({where: {userId: id}})
-  boards
-  .then( boards => {
-    res.json(boards);
-  })
-}
+  // const boards = Boards.findAll({ where: { userId: id } });
+  // boards
+  // .then( boards => {
+  //   res.json(boards);
+  // })
+  Boards.findAll({ where: { userId: id } })
+    .then((boards) => res.json(boards));
+};
 
 const boardCreate = (req, res) => {
   const addBoardInfo = req.body;
-  const board =  Boards.create(addBoardInfo);
-  board
-  .then( () => {
-    return Boards.findAll({where: {userId: addBoardInfo.userId}})
-  })
-  .then( boards => {
-    res.json(boards);
-  })
-}
+  Boards.create(addBoardInfo)
+    .then(() => {
+      return Boards.findAll({ where: { userId: addBoardInfo.userId } });
+    })
+    .then((boards) => res.json(boards));
+};
 
 const boardUpdate = (req, res) => {
-  const board =  Boards.update({title: req.body.title},
-    {where: {id: req.body.id}, returning: true})
-  board
-  .then( result => {
-    res.send(result);
-  })
-  .catch(err => {
-    res.json({
+  Boards.update({ title: req.body.title },
+    { where: { id: req.body.id }, returning: true })
+    .then((result) => res.send(result))
+    .catch(() => res.json({
       success: false
-    })
-  })
-}
+    }));
+};
 
 const deleteBoard = (req, res) => {
-  Boards.destroy({where:{id: req.body.id}})
-  .then( () => {
-    res.json({})
-  })
-}
+  const { id } = req.body;
+  Boards.destroy({ where: { id } })
+    .then(() => {
+      res.json({});
+    });
+};
 
 // container ---------------------------------------------------------------------------------------------------
 
 const container_boardId = (req, res) => {
   const boardId = req.params.container_boardId;
-  const containers = Containers.findAll({where: {boardId: boardId}})
-    containers
-    .then ( containers => {
-      res.json(containers);
-    })
-}
+  Containers.findAll({ where: { boardId } })
+    .then((containers) => res.json(containers));
+};
 
 const containerCreate = (req, res) => {
   const addContainer = req.body;
-  const containers =  Containers.create(addContainer);
-
-  containers
-  .then( () => {
-    return Containers.findAll({where: {boardId: addContainer.boardId}})
-  })
-  .then( containers => {
-    res.json(containers);
-  })
-}
+  Containers.create(addContainer)
+    .then(() => {
+      return Containers.findAll({ where: { boardId: addContainer.boardId } });
+    })
+    .then((containers) => res.json(containers));
+};
 
 const containerUpdate = (req, res) => {
-  const container = Containers.update({title: req.body.title},
-    {where: {id: req.body.id}, returning: true})
-    
-  container
-  .then( result => {
-    res.send(result);
-  })
-  .catch(err => {
-    res.json({
-      success: false
-    })
-  })
-}
+  Containers.update({ title: req.body.title },
+    { where: { id: req.body.id }, returning: true })
+    .then((result) => res.send(result))
+    .catch(() => res.json({ success: false }));
+};
 
 // card ---------------------------------------------------------------------------------------------------
 
 const allCard = (req, res) => {
-  const cards = Cards.findAll({where:{isActive: false}});
-  cards
-  .then( cards => {
-    res.json(cards);
-  })
-}
+  Cards.findAll({ where: { isActive: false } })
+    .then((cards) => res.json(cards));
+};
 
 const cardCreate = (req, res) => {
   const addCard = req.body;
-  const cards = Cards.create(addCard);
-  cards
-  .then( () => {
-    return Cards.findAll({where:{isActive: false}});
-  })
-  .then( cards => {
-    res.json(cards);
-  })
-}
+  Cards.create(addCard)
+    .then(() => {
+      return Cards.findAll({ where: { isActive: false } });
+    })
+    .then((cards) => res.json(cards));
+};
 
 const cardIsActive = (req, res) => {
-  const card = Cards.update({isActive: req.body.isActive},
-    {where: {id: req.body.id}, returning: false})
-  
-  card
-  .then( () => {
-    return Cards.findAll({where: {isActive: !req.body.isActive}});
-  })
-  .then( cards => {
-    res.json(cards);
-  })
-  .catch(err => {
-    res.json({
-      success: false
+  Cards.update({ isActive: req.body.isActive },
+    { where: { id: req.body.id }, returning: false })
+    .then(() => {
+      return Cards.findAll({ where: { isActive: !req.body.isActive } });
     })
-  })
-}
+    .then((cards) => res.json(cards))
+    .catch(() => res.json({ success: false }));
+};
 
 const completedCards = (req, res) => {
-  const completedCards = Cards.findAll({where:{isActive: true}})
-  completedCards
-  .then( cards => {
-    res.json(cards);
-  })
-  .catch( err => {
-    res.json({
-      success: false
+  Cards.findAll({ where: { isActive: true } })
+    .then((cards) => {
+      res.json(cards);
     })
-  })
-}
+    .catch(() => res.json({ success: false }));
+};
+
 // description ---------------------------------------------------------------------------------------------------
 
 const description = (req, res) => {
@@ -211,7 +173,7 @@ const checkNickName = (req, res) => {
 
 const createUser = (req, res) => {
   crypto.pbkdf2(req.body.password, process.env.SALT, 124356, 64, 'sha512', (err, key) => {
-    const user =  Users.create({
+    const user = Users.create({
       email: req.body.email, 
       password: key.toString('base64'),
       nickname: req.body.nickname})
