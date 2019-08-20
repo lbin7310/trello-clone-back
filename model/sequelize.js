@@ -3,7 +3,9 @@ require('dotenv').config();
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize(
-  'trello-clone', process.env.DB_USERNAME, process.env.DB_PASSWORD,
+  'trello-clone',
+  process.env.DB_USERNAME,
+  process.env.DB_PASSWORD,
   {
     host: process.env.DB_HOST,
     dialect: 'mysql'
@@ -65,5 +67,10 @@ const Description = sequelize.define('Description', {
 });
 
 module.exports = {
-  Users, Boards, Containers, Cards, Description, sequelize
+  Users,
+  Boards,
+  Containers,
+  Cards,
+  Description,
+  sequelize
 };

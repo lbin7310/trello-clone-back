@@ -1,6 +1,10 @@
 const express = require('express');
 const routes = require('../routes');
-const { description, descriptionCreate, descriptionUpdate } = require('../controllers');
+const {
+  description,
+  descriptionCreate,
+  descriptionUpdate
+} = require('../controllers');
 
 const descriptionRouter = express.Router();
 

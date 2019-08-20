@@ -1,7 +1,10 @@
 const express = require('express');
 const routes = require('../routes');
 const {
-  board_userId, boardCreate, boardUpdate, deleteBoard
+  board_userId,
+  boardCreate,
+  boardUpdate,
+  deleteBoard
 } = require('../controllers');
 
 const boardRouter = express.Router();

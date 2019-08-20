@@ -3,7 +3,10 @@ const routes = require('../routes');
 
 const CardRouter = express.Router();
 const {
-  cardCreate, cardIsActive, completedCards, allCard
+  cardCreate,
+  cardIsActive,
+  completedCards,
+  allCard
 } = require('../controllers');
 
 CardRouter.post(routes.create, cardCreate);
